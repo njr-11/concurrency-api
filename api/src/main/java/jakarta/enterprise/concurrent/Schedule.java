@@ -235,6 +235,8 @@ public @interface Schedule {
     /**
      * Enables instances of the {@link Schedule} annotation to be created
      * at run time.
+     *
+     * @since 3.1
      */
     public static final class Literal
             extends AnnotationLiteral<Schedule>
@@ -310,7 +312,7 @@ public @interface Schedule {
          * @param zone         Time zone id, such as {@code America/Chicago},
          *                     of the schedule. Empty string indicates the
          *                     {@link java.time.ZoneId#systemDefault() default time zone}.
-         * @return a new instance of the {@code Schedule} annotation.
+         * @return a new instance of the {@link Schedule} annotation.
          */
         public static Literal of(final String cron,
                                  final Month[] months,
