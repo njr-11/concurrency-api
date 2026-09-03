@@ -26,7 +26,10 @@ import java.time.Month;
 import java.util.Arrays;
 import java.util.Objects;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.util.AnnotationLiteral;
+import jakarta.inject.Singleton;
 
 /**
  * <p>Defines a schedule that indicates when to run a method.</p>
@@ -41,7 +44,14 @@ import jakarta.enterprise.util.AnnotationLiteral;
  * the schedule defines the times after which to run the method. The method must
  * have a {@code void} return type and no parameters. The bean must not be a
  * Jakarta Enterprise Bean. Neither the bean nor the bean method may be annotated
- * {@link Asynchronous @Asynchronous}.</p>
+ * {@link Asynchronous @Asynchronous}. The CDI managed bean must have one of the
+ * following scopes or pseudo-scopes:
+ * <ul>
+ * <li>{@link ApplicationScoped}</li>
+ * <li>{@link Dependent}</li>
+ * <li>{@link Singleton}</li>
+ * </ul>
+ * </p>
  *
  * <p>Upon starting the application, the Jakarta EE Product Provider computes the
  * next time from the {@code Schedule} annotation and schedules a task that aims to
@@ -80,7 +90,7 @@ import jakarta.enterprise.util.AnnotationLiteral;
  *
  * <p>{@link Asynchronous} methods with a {@code Schedule} annotation can be
  * written to schedule automatically at application startup by observing the
- * application's {@code jakarta.enterprise.Startup} event. For example,
+ * application's {@link jakarta.enterprise.event.Startup} event. For example,
  * </p>
  * <pre>
  *  {@literal @}Asynchronous(runAt = {@literal @}Schedule(cron = "30 8 * * SAT,SUN",
